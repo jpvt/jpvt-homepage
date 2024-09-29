@@ -78,13 +78,13 @@ const Navbar = props => {
           mt={{ base: 4, md: 0 }}
         >
           <LinkItem href="/works" path={path}>
-            Works
+            Publications
           </LinkItem>
           <LinkItem href="/wallpapers" path={path}>
-            Wallpapers
+            Software
           </LinkItem>
-          <LinkItem href="/posts" path={path}>
-            Posts
+          <LinkItem href="/cv" path={path}>
+            CV
           </LinkItem>
           <LinkItem href="https://uses.craftz.dog/">Uses</LinkItem>
           <LinkItem
@@ -96,8 +96,7 @@ const Navbar = props => {
             style={{ gap: 4 }}
             pl={2}
           >
-            <IoLogoGithub />
-            Source
+            Blog
           </LinkItem>
         </Stack>
 

@@ -45,7 +45,7 @@ const Home = () => (
           overflowY="auto" // Enable vertical scrolling
           maxHeight="100%"
           borderRight="1px solid"
-          borderColor={useColorModeValue('gray.200', 'gray.700')} // Adds a divider between left and right
+          borderColor={useColorModeValue('green.200', 'green.700')} // Adds a divider between left and right
           sx={hideScrollbarStyles} // Apply the custom styles to hide scrollbar
         >
           {/* Left Side Alignment */}
@@ -85,7 +85,7 @@ const Home = () => (
                     aria-label="Github"
                     icon={<IoLogoGithub />}
                     variant="ghost"
-                    colorScheme="#0BA019"
+                    colorScheme="#2d7e55"
                     fontSize="2xl" // Increase font size for larger icon
                   />
                 </Link>
@@ -94,7 +94,7 @@ const Home = () => (
                     aria-label="Twitter"
                     icon={<IoLogoTwitter />}
                     variant="ghost"
-                    colorScheme="#0BA019"
+                    colorScheme="#2d7e55"
                     fontSize="2xl" // Increase font size for larger icon
                   />
                 </Link>
@@ -103,7 +103,7 @@ const Home = () => (
                     aria-label="LinkedIn"
                     icon={<IoLogoLinkedin />}
                     variant="ghost"
-                    colorScheme="#0BA019"
+                    colorScheme="#2d7e55"
                     fontSize="2xl" // Increase font size for larger icon
                   />
                 </Link>
@@ -112,7 +112,7 @@ const Home = () => (
                     aria-label="Email"
                     icon={<IoMail />}
                     variant="ghost"
-                    colorScheme="#0BA019"
+                    colorScheme="#2d7e55"
                     fontSize="2xl" // Increase font size for larger icon
                   />
                 </Link>
