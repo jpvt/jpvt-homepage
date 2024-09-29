@@ -127,6 +127,7 @@ const Home = () => (
           p={4}
           overflowY="auto" // Enable vertical scrolling
           maxHeight="100%"
+          sx={hideScrollbarStyles}
         >
           {/* News Section */}
           <Section delay={0.1}>
