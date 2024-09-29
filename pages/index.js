@@ -4,238 +4,187 @@ import {
   Container,
   Heading,
   Box,
-  SimpleGrid,
-  Button,
-  List,
-  ListItem,
-  useColorModeValue
+  useColorModeValue,
+  Flex,
+  VStack,
+  HStack, // Import HStack for horizontal layout
+  IconButton, // Use IconButton to display just the icons
 } from '@chakra-ui/react'
-import { ChevronRightIcon, EmailIcon } from '@chakra-ui/icons'
 import Paragraph from '../components/paragraph'
 import { BioSection, BioYear } from '../components/bio'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
-import { GridItem } from '../components/grid-item'
-import { IoLogoTwitter, IoLogoInstagram, IoLogoGithub } from 'react-icons/io5'
-import thumbYouTube from '../public/images/links/youtube.png'
-import thumbInkdrop from '../public/images/works/inkdrop_eyecatch.png'
+import { IoLogoTwitter, IoLogoGithub, IoLogoLinkedin, IoMail } from 'react-icons/io5'
 import Image from 'next/image'
+
+// Custom styles to hide scrollbars
+const hideScrollbarStyles = {
+  /* For Chrome, Safari, and Opera */
+  '&::-webkit-scrollbar': {
+    display: 'none',
+  },
+  /* For IE, Edge, and Firefox */
+  msOverflowStyle: 'none',
+  scrollbarWidth: 'none',
+}
 
 const Home = () => (
   <Layout>
-    <Container>
-      <Box
-        borderRadius="lg"
-        mb={6}
-        p={3}
-        textAlign="center"
-        bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')}
-        css={{ backdropFilter: 'blur(10px)' }}
+    <Container maxW="100%" height="80vh" display="flex">
+      {/* Flex container to split content into two sides with independent scrolling */}
+      <Flex
+        direction={{ base: 'column', md: 'row' }}
+        width="100%"
+        height="100%"
+        overflow="hidden" // Ensure content is hidden to enable scroll only within each section
       >
-        Hello, I&apos;m an indie app developer based in Japan!
-      </Box>
-
-      <Box display={{ md: 'flex' }}>
-        <Box flexGrow={1}>
-          <Heading as="h2" variant="page-title">
-            Takuya Matsuyama
-          </Heading>
-          <p>Digital Craftsman ( Artist / Developer / Designer )</p>
-        </Box>
+        {/* Left Side */}
         <Box
-          flexShrink={0}
-          mt={{ base: 4, md: 0 }}
-          ml={{ md: 6 }}
-          textAlign="center"
+          flex="1"
+          p={4}
+          overflowY="auto" // Enable vertical scrolling
+          maxHeight="100%"
+          borderRight="1px solid"
+          borderColor={useColorModeValue('gray.200', 'gray.700')} // Adds a divider between left and right
+          sx={hideScrollbarStyles} // Apply the custom styles to hide scrollbar
         >
-          <Box
-            borderColor="whiteAlpha.800"
-            borderWidth={2}
-            borderStyle="solid"
-            w="100px"
-            h="100px"
-            display="inline-block"
-            borderRadius="full"
-            overflow="hidden"
-          >
-            <Image
-              src="/images/takuya.jpg"
-              alt="Profile image"
-              width="100"
-              height="100"
-            />
-          </Box>
+          {/* Left Side Alignment */}
+          <VStack alignItems="center" spacing={1}>
+            {/* Profile Picture */}
+            <Box
+              borderColor="whiteAlpha.800"
+              borderWidth={2}
+              borderStyle="solid"
+              width="200px"
+              height="200px"
+              display="inline-block"
+              borderRadius="16px"
+              overflow="hidden"
+              mb={4}
+            >
+              <Image
+                src="/images/joao.jpg"
+                alt="Profile image"
+                width="2000"
+                height="2000"
+              />
+            </Box>
+            {/* Title and Pronouns */}
+            <Heading as="h2" variant="page-title" textAlign="center">
+              João Teixeira
+            </Heading>
+            <p style={{ textAlign: 'center' }}>he/him, they/them</p>
+            <p style={{ textAlign: 'center' }}>Software Engineer @ Microsoft</p>
+
+            {/* Links Section */}
+            <Section delay={0.1}>
+              {/* HStack for displaying icons side by side */}
+              <HStack spacing={1} mt={2}>
+                <Link href="https://github.com/jpvt" target="_blank">
+                  <IconButton
+                    aria-label="Github"
+                    icon={<IoLogoGithub />}
+                    variant="ghost"
+                    colorScheme="#0BA019"
+                    fontSize="2xl" // Increase font size for larger icon
+                  />
+                </Link>
+                <Link href="https://twitter.com/jpvteixeira" target="_blank">
+                  <IconButton
+                    aria-label="Twitter"
+                    icon={<IoLogoTwitter />}
+                    variant="ghost"
+                    colorScheme="#0BA019"
+                    fontSize="2xl" // Increase font size for larger icon
+                  />
+                </Link>
+                <Link href="https://www.linkedin.com/in/jpvt/" target="_blank">
+                  <IconButton
+                    aria-label="LinkedIn"
+                    icon={<IoLogoLinkedin />}
+                    variant="ghost"
+                    colorScheme="#0BA019"
+                    fontSize="2xl" // Increase font size for larger icon
+                  />
+                </Link>
+                <Link href="mailto:jpvteixeira99@gmail.com" target="_blank">
+                  <IconButton
+                    aria-label="Email"
+                    icon={<IoMail />}
+                    variant="ghost"
+                    colorScheme="#0BA019"
+                    fontSize="2xl" // Increase font size for larger icon
+                  />
+                </Link>
+              </HStack>
+            </Section>
+          </VStack>
         </Box>
-      </Box>
 
-      <Section delay={0.1}>
-        <Heading as="h3" variant="section-title">
-          Work
-        </Heading>
-        <Paragraph>
-          Takuya is a freelance and a full-stack developer based in Osaka with a
-          passion for building digital services/stuff he wants. He has a knack
-          for all things launching products, from planning and designing all the
-          way to solving real-life problems with code. When not online, he loves
-          hanging out with his camera. Currently, he is living off of his own
-          product called{' '}
-          <Link as={NextLink} href="/works/inkdrop" passHref scroll={false}>
-            Inkdrop
-          </Link>
-          . He publishes content for marketing his products and his YouTube
-          channel called &quot;
-          <Link
-            as={NextLink}
-            href="https://www.youtube.com/devaslife"
-            passHref
-            target="_blank"
-          >
-            Dev as Life
-          </Link>
-          &quot; has more than 100k subscribers.
-        </Paragraph>
-        <Box align="center" my={4}>
-          <Button
-            as={NextLink}
-            href="/works"
-            scroll={false}
-            rightIcon={<ChevronRightIcon />}
-            colorScheme="teal"
-          >
-            My portfolio
-          </Button>
+        {/* Right Side */}
+        <Box
+          flex="2"
+          p={4}
+          overflowY="auto" // Enable vertical scrolling
+          maxHeight="100%"
+        >
+          {/* News Section */}
+          <Section delay={0.1}>
+            <Box
+              borderRadius="lg"
+              mb={3}
+              p={3}
+              mt={0}
+              textAlign="start"
+              bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')}
+              css={{ backdropFilter: 'blur(10px)' }}
+            >
+              <Heading as="h3" variant="section-title">
+                Selected News
+              </Heading>
+              <BioSection>
+                <BioYear>Jan 2024</BioYear>
+                Started as Software Engineer at Microsoft, working with Machine Learning at AKS.
+              </BioSection>
+              <BioSection>
+                <BioYear>Mar 2023</BioYear>
+                I'm thrilled to announce that this summer I'll be joining{' '}
+                <Link as={NextLink} href="https://sgi.mit.edu/sgi-2023" passHref scroll={false}>
+                  MIT's Summer Geometry Initiative
+                </Link>{' '}
+                as a Fellow!
+              </BioSection>    
+              <BioSection>
+                <BioYear>Oct 2021</BioYear>
+                First person in my home university to intern at Amazon.
+              </BioSection>
+            </Box>
+          </Section>
+
+          {/* About Me Section */}
+          <Section delay={0.2}>
+            <Heading as="h3" variant="section-title">
+              About Me
+            </Heading>
+            <Paragraph>
+              Hi! I'm a Software Engineer at Microsoft, using cool math and AI to improve Azure Kubernetes Service (AKS).
+              I also do research in ML and Geometry Processing, continuing the projects I started during the{' '}
+              <Link href="https://sgi.mit.edu/sgi-2023" target="_blank">MIT Summer Geometry Initiative</Link>.
+            </Paragraph>
+          </Section>
+
+          {/* I Love Section */}
+          <Section delay={0.3}>
+            <Heading as="h3" variant="section-title">
+              I ♥
+            </Heading>
+            <Paragraph>
+              Outside of work, I love
+              Art, Music, Tabletop RPGs, Soccer, and Indie Games!
+            </Paragraph>
+          </Section>
         </Box>
-      </Section>
-
-      <Section delay={0.2}>
-        <Heading as="h3" variant="section-title">
-          Bio
-        </Heading>
-        <BioSection>
-          <BioYear>1984</BioYear>
-          Born in Osaka (大阪), Japan.
-        </BioSection>
-        <BioSection>
-          <BioYear>2010</BioYear>
-          Completed the Master&apos;s Program in the Graduate School of
-          Information Science at Nara Institute of Science and Technology
-          (奈良先端科学技術大学院大学情報科学研究科修士課程)
-        </BioSection>
-        <BioSection>
-          <BioYear>2010</BioYear>
-          Worked at Yahoo! Japan (ヤフー株式会社入社)
-        </BioSection>
-        <BioSection>
-          <BioYear>2012 to present</BioYear>
-          Working as a freelancer
-        </BioSection>
-      </Section>
-
-      <Section delay={0.3}>
-        <Heading as="h3" variant="section-title">
-          I ♥
-        </Heading>
-        <Paragraph>
-          Art, Music,{' '}
-          <Link href="https://illust.odoruinu.net/" target="_blank">
-            Drawing
-          </Link>
-          , Playing Drums,{' '}
-          <Link href="https://500px.com/p/craftzdog" target="_blank">
-            Photography
-          </Link>
-          , Leica, Machine Learning
-        </Paragraph>
-      </Section>
-
-      <Section delay={0.3}>
-        <Heading as="h3" variant="section-title">
-          On the web
-        </Heading>
-        <List>
-          <ListItem>
-            <Link href="https://github.com/craftzdog" target="_blank">
-              <Button
-                variant="ghost"
-                colorScheme="teal"
-                leftIcon={<IoLogoGithub />}
-              >
-                @craftzdog
-              </Button>
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link href="https://twitter.com/inkdrop_app" target="_blank">
-              <Button
-                variant="ghost"
-                colorScheme="teal"
-                leftIcon={<IoLogoTwitter />}
-              >
-                @inkdrop_app (English)
-              </Button>
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link href="https://twitter.com/craftzdog" target="_blank">
-              <Button
-                variant="ghost"
-                colorScheme="teal"
-                leftIcon={<IoLogoTwitter />}
-              >
-                @craftzdog (日本語)
-              </Button>
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link href="https://instagram.com/craftzdog" target="_blank">
-              <Button
-                variant="ghost"
-                colorScheme="teal"
-                leftIcon={<IoLogoInstagram />}
-              >
-                @craftzdog
-              </Button>
-            </Link>
-          </ListItem>
-        </List>
-
-        <SimpleGrid columns={[1, 2, 2]} gap={6}>
-          <GridItem
-            href="https://www.youtube.com/devaslife"
-            title="Dev as Life"
-            thumbnail={thumbYouTube}
-          >
-            My YouTube channel (&gt;200k subs)
-          </GridItem>
-          <GridItem
-            href="https://www.inkdrop.app/"
-            title="Inkdrop"
-            thumbnail={thumbInkdrop}
-          >
-            A Markdown note-taking app
-          </GridItem>
-        </SimpleGrid>
-
-        <Heading as="h3" variant="section-title">
-          Newsletter
-        </Heading>
-        <p>
-          Join me on a behind-the-scenes coding journey. Weekly updates on
-          projects, tutorials, and videos
-        </p>
-
-        <Box align="center" my={4}>
-          <Button
-            as={NextLink}
-            href="https://www.devas.life/"
-            scroll={false}
-            leftIcon={<EmailIcon />}
-            colorScheme="teal"
-          >
-            Sign up my newsletter here
-          </Button>
-        </Box>
-      </Section>
+      </Flex>
     </Container>
   </Layout>
 )
