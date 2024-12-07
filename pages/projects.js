@@ -101,7 +101,7 @@ const generateProjectItems = (data) => {
             {/* Optional Badges for tags or additional links */}
             {project.tags && (
               <HStack mt={2} spacing={2}>
-                {Object.entries(project.tags).map(([idx, tag]) => (
+                {Object.entries(project.tags).map(([_, tag]) => (
                   (
                     <Badge key={tag} colorScheme="green">
                       {tag}

@@ -149,7 +149,7 @@ const Home = () => (
               </BioSection>
               <BioSection>
                 <BioYear>Mar 2023</BioYear>
-                I'm thrilled to announce that this summer I'll be joining{' '}
+                I'm thrilled to announce that this summer I'll be joining{" "}
                 <Link as={NextLink} href="https://sgi.mit.edu/sgi-2023" passHref scroll={false}>
                   MIT's Summer Geometry Initiative
                 </Link>{' '}

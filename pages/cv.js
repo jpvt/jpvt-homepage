@@ -1,11 +1,7 @@
-import { Container, Heading, SimpleGrid, Divider, Text, Box, Flex, HStack, Link, IconButton, useColorModeValue} from '@chakra-ui/react'
-import { IoLogoTwitter, IoLogoGithub, IoLogoLinkedin, IoMail } from 'react-icons/io5'
+import { Container, Heading, SimpleGrid, Divider, Text, Box, Link, IconButton, useColorModeValue} from '@chakra-ui/react'
+import { IoLogoGithub, IoLogoLinkedin, IoMail } from 'react-icons/io5'
 import Layout from '../components/layouts/article';
 import Section from '../components/section';
-import { mode } from '@chakra-ui/theme-tools'
-
-
-
 
 const CV = () => (
   <Layout title="Curriculum Vitae">

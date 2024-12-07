@@ -91,7 +91,7 @@ const generatePublicationItems = (data) => {
             {/* Optional Badges for awards or additional links */}
             {publication.links && (
               <HStack mt={2} spacing={2}>
-                {Object.entries(publication.links).map(([key, link]) => (
+                {Object.entries(publication.links).map(([key, _]) => (
                   key !== 'DOI' && (
                     <Badge key={key} colorScheme="green">
                       {key}
