@@ -456,6 +456,87 @@ const CV = () => (
         </SimpleGrid>
       </Section>
 
+      <Section delay={0.4}>
+        <Heading as="h3" fontSize={24} mb={4}>
+          Teaching
+        </Heading>
+        <SimpleGrid columns={[1, 1, 1]} spacing={6}>
+
+          {/* Special Topics - Deep Learning - Federal University of Paraíba */}
+          <Box>
+            <Text fontSize="lg" fontWeight="bold">
+              Special Topics - Deep Learning - Federal University of Paraíba
+            </Text>
+            <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')} mb={2}>
+              Guest Lecturer on Reinforcement Learning - Hosted by Prof. Tiago Maritan 2023
+            </Text>
+          </Box>
+
+          <Box>
+            <Text fontSize="lg" fontWeight="bold">
+              Teaching Assistant - Federal University of Paraíba
+            </Text>
+            <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')} mb={2}>
+              Volunteer TA for introduction to programming classes. 2019 - 2020
+            </Text>
+          </Box>
+
+        </SimpleGrid>
+      </Section>
+
+      <Section delay={0.4}>
+        <Heading as="h3" fontSize={24} mb={4}>
+          Mentoring
+        </Heading>
+        <SimpleGrid columns={[1, 1, 1]} spacing={6}>
+
+        <Box>
+            <Text fontSize="lg" fontWeight="bold">
+              ARIA Lab - UFPB
+            </Text>
+            <Text fontSize="md" mt={2}>
+              Mentored students in research projects involving medical generative models in partnership with the X-ray Physics Lab, University of Pennsylvania.
+            </Text>
+            <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')} mb={2}>
+              Nov 2023 - Feb 2024
+            </Text>
+          </Box>
+          <Box>
+            <Text fontSize="lg" fontWeight="bold">
+              TAIL - Technology and Artificial Intelligence League
+            </Text>
+            <Text fontSize="md" mt={2}>
+              Mentored students on the development of small AI research projects.
+            </Text>
+            <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')} mb={2}>
+              2020 - 2022
+            </Text>
+          </Box>
+
+        </SimpleGrid>
+      </Section>
+
+      <Section delay={0.4}>
+        <Heading as="h3" fontSize={24} mb={4}>
+          Mentoring Feedback
+        </Heading>
+        <SimpleGrid columns={[1, 1, 1]} spacing={6}>
+
+        <Box>
+            <Text fontSize="lg" fontWeight="bold">
+              ARIA Lab and TAIL - UFPB
+            </Text>
+            <Text fontSize="sm" mt={2}>
+              "During my undergraduate studies in computer science, João was a very important mentor for me when I was starting my academic experience at UFPB, and he showed me how to make the most of the course. He also referred me to the ARIA Lab, a research group in the field of artificial intelligence for medicine, where I was fortunate to be guided and start my first paper with his guidance. I am so much inspired by his commitment to train new students, not only me but several others at UFPB’s Center for Informatics. In the future, I also want to contribute with the same spirit of support and mentorship that João values so much."
+            </Text>
+            <Text fontSize="sm" mt={2}>
+              "João Pedro has been with me since the beginning of my academic journey, from the first semester to the present moment, in the fifth semester. Over these more than two years, his advice, explanations, and career guidance have been fundamental in shaping my passions and driving my academic growth. More than an exceptional mentor, João Pedro has always stood out to me for his understanding and genuine willingness to help, qualities that have been essential for my development and have made him my greatest inspiration."
+            </Text>
+          </Box>
+
+        </SimpleGrid>
+      </Section>
+
 
     </Container>
   </Layout>
