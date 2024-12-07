@@ -154,7 +154,11 @@ const Home = () => (
                   MIT's Summer Geometry Initiative
                 </Link>{' '}
                 as a Fellow!
-              </BioSection>    
+              </BioSection> 
+              <BioSection>
+                <BioYear>Aug 2022</BioYear>
+                Honored to become a Estudar Foundation Tech Fellow, class of 2022.
+              </BioSection>   
               <BioSection>
                 <BioYear>Oct 2021</BioYear>
                 First person in my home university to intern at Amazon.

@@ -18,8 +18,8 @@ const Main = ({ children, router }) => {
         <meta name="description" content="Joao's homepage" />
         <meta name="author" content="Joao Teixeira" />
         <meta name="author" content="jpvt" />
-        <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="favicon.png" />
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
         <meta name="twitter:title" content="Joao Teixeira" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@jpvteixeira" />
