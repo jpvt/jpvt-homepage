@@ -30,7 +30,7 @@ const hideScrollbarStyles = {
 
 const Home = () => (
   <Layout>
-    <Container maxW="100%" height="80vh" display="flex">
+    <Container maxW="100%" height="90vh" display="flex">
       {/* Flex container to split content into two sides with independent scrolling */}
       <Flex
         direction={{ base: 'column', md: 'row' }}
@@ -124,7 +124,7 @@ const Home = () => (
           p={4}
           overflowY="auto" // Enable vertical scrolling
           maxHeight="100%"
-          sx={hideScrollbarStyles}
+          sx={{ ...hideScrollbarStyles}}
         >
           {/* News Section */}
           <Section delay={0.1}>
@@ -169,9 +169,33 @@ const Home = () => (
               About Me
             </Heading>
             <Paragraph>
-              Hi! I'm a Software Engineer at Microsoft, using cool math and AI to improve Azure Kubernetes Service (AKS).
-              I also do research in ML and Geometry Processing, continuing the projects I started during the{' '}
-              <Link href="https://sgi.mit.edu/sgi-2023" target="_blank">MIT Summer Geometry Initiative</Link>.
+            Hi! I'm <strong>João Teixeira</strong> <small>(Jo-ahn-uhm Tay-shay-ra)</small>
+            <br></br>
+            <br></br>
+            <p>
+                I'm a <strong>Software Engineer at Microsoft</strong>, where I design and build 
+                {' '}<strong>automated, data-driven systems</strong> for 
+                {' '}<strong>Azure Kubernetes Service (AKS) Infrastructure</strong>. My work focuses on 
+                leveraging historical data and predictive analytics to optimize 
+                {' '}<strong>capacity management</strong> and <strong>resource allocation</strong> at scale.
+            </p>
+            <br></br>
+            <p>
+                I’m passionate about <strong>Geometry Processing</strong> and <strong>Machine Learning</strong>, particularly 
+                shape representation and analysis. I was a <Link href="https://sgi.mit.edu/sgi-2023" target="_blank">
+                {' '}<strong>MIT Summer Geometry Initiative Fellow (2023)</strong></Link>, where I kick-started several projects showcased here.
+            </p>
+            <br></br>
+            <p>
+                Previously, I worked on <strong>Computer Graphics</strong> and 
+                {' '}<strong>Medical Imaging</strong> as part of the <strong>ARIA Lab</strong> in collaboration with 
+                the <strong>X-ray Physics Lab at the University of Pennsylvania</strong>. I’m also a proud recipient of the <strong>Estudar Foundation Tech Fellowship</strong> 
+                {' '}<em>(0.6% acceptance rate)</em>.
+            </p>
+            <br></br>
+            <p>
+                Feel free to connect—let’s talk about <strong>geometry, machine learning, engineering</strong>, or anything in between!
+            </p>
             </Paragraph>
           </Section>
 
