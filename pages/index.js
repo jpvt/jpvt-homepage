@@ -30,13 +30,12 @@ const hideScrollbarStyles = {
 
 const Home = () => (
   <Layout>
-    <Container maxW="100%" height="90vh" display="flex">
+    <Container maxW="100%" height="90vh" display="flex" flexDirection="column" overflow="auto" css={hideScrollbarStyles}>
       {/* Flex container to split content into two sides with independent scrolling */}
       <Flex
         direction={{ base: 'column', md: 'row' }}
         width="100%"
         height="100%"
-        overflow={{ base: 'auto', md: 'hidden' }} // Enable scroll for mobile, hidden for desktop
       >
         {/* Left Side */}
         <Box
@@ -122,9 +121,8 @@ const Home = () => (
         <Box
           flex="2"
           p={4}
-          overflowY="auto" // Enable vertical scrolling
-          maxHeight="100%"
-          sx={{ ...hideScrollbarStyles}}
+          overflow={{ base: 'visible', md: 'auto' }} // Enable scroll for the right side on larger screens
+          css={hideScrollbarStyles}
         >
           {/* News Section */}
           <Section delay={0.1}>
