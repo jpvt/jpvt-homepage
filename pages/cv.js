@@ -11,7 +11,7 @@ const CV = () => (
         <Heading as="h1" size="2xl" fontWeight="bold" mb={4}>
           João Teixeira
         </Heading>
-        <Text fontSize="lg" color={useColorModeValue('green.600', 'gray.100')}>
+        <Text fontSize="lg" color={useColorModeValue('green.900', 'gray.100')}>
           Software Engineer
         </Text>
         <Text fontSize="md" color="#2d7e55" mt={2}>
@@ -62,7 +62,7 @@ const CV = () => (
             <Text fontSize="lg" fontWeight="bold">
             Federal University of Paraíba, Brazil
             </Text>
-            <Text fontSize="md" color={useColorModeValue('green.600', 'gray.100')}>
+            <Text fontSize="md" color={useColorModeValue('green.900', 'gray.100')}>
             BSc in Computer Engineering
             </Text>
             <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')}>
@@ -80,11 +80,35 @@ const CV = () => (
           Publications
         </Heading>
         <SimpleGrid columns={[1, 1, 1]} spacing={6}>
+        <Box>
+            <Text fontSize="lg" fontWeight="bold">
+              9. Comparative Evaluation of Ray-Tracing and Monte Carlo Virtual Clinical Trials Pipelines for Lesion Detection in Digital Breast Tomosynthesis
+            </Text>
+            <Text fontSize="md" color={useColorModeValue('green.900', 'gray.100')}>
+              Chloe J. Choi, Bruno Barufaldi, <b><u>João P. V. Teixeira</u></b>, Raymond J. Acciavatti, Andrew D. A. Maidment
+            </Text>
+            <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')}>
+              Proceedings Virtual Imaging Trials in Medicine 2024 Page: 116-121, 2024
+            </Text>
+          </Box>
+
+        <Box>
+            <Text fontSize="lg" fontWeight="bold">
+              8. Representation of complex mammary parenchyma texture in tomosynthesis using simplex noise simulations
+            </Text>
+            <Text fontSize="md" color={useColorModeValue('green.900', 'gray.100')}>
+              Bruno Barufaldi, Chloe J. Choi, <b><u>João P. V. Teixeira</u></b>, Magnus Dustler, Raphael B. Englander, Thais G. do Rego, Yuri Malheiros, Telmo Filho, Belayat Hossain, Juhun Lee, Andrew D. A. Maidment
+            </Text>
+            <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')}>
+              SPIE Medical Imaging, 2024, San Diego, California, United States, 2024
+            </Text>
+          </Box>
+
           <Box>
             <Text fontSize="lg" fontWeight="bold">
               7. Multiclass Segmentation of Breast Tissue and Suspicious Findings: A Simulation-Based Study for the Development of Self-Steering Tomosynthesis
             </Text>
-            <Text fontSize="md" color={useColorModeValue('green.600', 'gray.100')}>
+            <Text fontSize="md" color={useColorModeValue('green.900', 'gray.100')}>
               Bruno Barufaldi, Yann Nobrega, Giulia Carvalhal, <b><u>João P. V. Teixeira</u></b>, Thais G. do Rego, Yuri Malheiros, Telmo Filho, Raymond J. Acciavatti, Andrew D. A. Maidment
             </Text>
             <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')}>
@@ -96,7 +120,7 @@ const CV = () => (
             <Text fontSize="lg" fontWeight="bold">
               6. Interactive breast lesion designer for virtual trials based on Perlin noise
             </Text>
-            <Text fontSize="md" color={useColorModeValue('green.600', 'gray.100')}>
+            <Text fontSize="md" color={useColorModeValue('green.900', 'gray.100')}>
               Magnus Dustler, Hanna Tomic, Anna Bjerken, Anders Tingberg, Pontus Timberg, Sophia Zackrisson, Arthur Chaves Costa, <b><u>João P. V. Teixeira</u></b>, Bruno Barufaldi, Predrag R. Bakic
             </Text>
             <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')}>
@@ -108,7 +132,7 @@ const CV = () => (
             <Text fontSize="lg" fontWeight="bold">
               5. Spatial dependency of lesion detectability in digital breast tomosynthesis
             </Text>
-            <Text fontSize="md" color={useColorModeValue('green.600', 'gray.100')}>
+            <Text fontSize="md" color={useColorModeValue('green.900', 'gray.100')}>
               Chloe J. Choi, Bruno Barufaldi, <b><u>João P. V. Teixeira</u></b>, Raymond J. Acciavatti, Andrew D. A. Maidment
             </Text>
             <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')}>
@@ -120,7 +144,7 @@ const CV = () => (
             <Text fontSize="lg" fontWeight="bold">
               4. Multiclass segmentation of suspicious findings in simulated breast tomosynthesis images using a U-Net
             </Text>
-            <Text fontSize="md" color={useColorModeValue('green.600', 'gray.100')}>
+            <Text fontSize="md" color={useColorModeValue('green.900', 'gray.100')}>
               Yann Nobrega, Giulia Carvalhal, <b><u>João P. V. Teixeira</u></b>, Barbara Camargo, Thais G. do Rego, Yuri Malheiros, Telmo Filho, Trevor Vent, Raymond J. Acciavatti, Andrew D. A. Maidment, Bruno Barufaldi
             </Text>
             <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')}>
@@ -132,7 +156,7 @@ const CV = () => (
             <Text fontSize="lg" fontWeight="bold">
               3. Novel Perlin-based phantoms using 3D models of compressed breast shapes and fractal noise
             </Text>
-            <Text fontSize="md" color={useColorModeValue('green.600', 'gray.100')}>
+            <Text fontSize="md" color={useColorModeValue('green.900', 'gray.100')}>
               <b><u>João P. V. Teixeira</u></b>, Telmo Filho, Thais G. do Rego, Yuri Malheiros, Magnus Dustler, Predrag R. Bakic, Trevor Vent, Raymond J. Acciavatti, Srilalan Krishnamoorthy, Suleman Surti, Andrew D. A. Maidment, Bruno Barufaldi
             </Text>
             <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')}>
@@ -144,7 +168,7 @@ const CV = () => (
             <Text fontSize="lg" fontWeight="bold">
               2. Iris-CV: Classifying Iris Flowers Is Not as Easy as You Thought
             </Text>
-            <Text fontSize="md" color={useColorModeValue('green.600', 'gray.100')}>
+            <Text fontSize="md" color={useColorModeValue('green.900', 'gray.100')}>
               Itamar Filho, <b><u>João P. V. Teixeira</u></b>, João W. L. Lins, Felipe Sousa, Ana Sousa, Manuel F. Junior, Thaís Ramos, Cecília Silva, Thais G. do Rego, Yuri Malheiros, Telmo Filho
             </Text>
             <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')}>
@@ -156,7 +180,7 @@ const CV = () => (
             <Text fontSize="lg" fontWeight="bold">
               1. An Approach for Automatic Description of Characters for Blind People
             </Text>
-            <Text fontSize="md" color={useColorModeValue('green.600', 'gray.100')}>
+            <Text fontSize="md" color={useColorModeValue('green.900', 'gray.100')}>
               Itamar Filho, Felipe Sousa, João W. L. Lins, <b><u>João P. V. Teixeira</u></b>, Tiago Maritan
             </Text>
             <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')}>
@@ -521,6 +545,9 @@ const CV = () => (
         <Box>
             <Text fontSize="lg" fontWeight="bold">
               ARIA Lab and TAIL - UFPB
+            </Text>
+            <Text fontSize="md" mt={2}>
+              During my last years at ARIA Lab and TAIL, I worked as a mentor for several research projects. Below are some anonymous feedbacks from students I mentored, each quotation corresponds to a different student:
             </Text>
             <Text fontSize="sm" mt={2}>
               "During my undergraduate studies in computer science, João was a very important mentor for me when I was starting my academic experience at UFPB, and he showed me how to make the most of the course. He also referred me to the ARIA Lab, a research group in the field of artificial intelligence for medicine, where I was fortunate to be guided and start my first paper with his guidance. I am so much inspired by his commitment to train new students, not only me but several others at UFPB’s Center for Informatics. In the future, I also want to contribute with the same spirit of support and mentorship that João values so much."

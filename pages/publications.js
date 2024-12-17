@@ -4,6 +4,22 @@ import Section from '../components/section';
 
 const publicationsData = [
   {
+    title: "Comparative Evaluation of Ray-Tracing and Monte Carlo Virtual Clinical Trials Pipelines for Lesion Detection in Digital Breast Tomosynthesis",
+    authors: ["Chloe J. Choi", "Bruno Barufaldi", "João P. V. Teixeira", "Raymond J. Acciavatti", "Andrew D. A. Maidment"],
+    conference: " Proceedings Virtual Imaging Trials in Medicine 2024 Page: 116-121",
+    year: 2024,
+    image: "/images/publications/vitm.png",
+    links: { DOI: "https://doi.org/10.48550/arXiv.2405.05359" }
+  },
+  {
+    title: "Representation of complex mammary parenchyma texture in tomosynthesis using simplex noise simulations",
+    authors: ["Bruno Barufaldi", "Chloe J. Choi", "João P. V. Teixeira", "Magnus Dustler", "Raphael B. Englander", "Thais G. do Rego", "Yuri Malheiros", "Telmo Filho", "Belayat Hossain", "Juhun Lee", "Andrew D. A. Maidment"],
+    conference: "SPIE Medical Imaging, 2024, San Diego, California, United States",
+    year: 2024,
+    image: "/images/publications/spie2024.png",
+    links: { DOI: "https://doi.org/10.1117/12.3006839" }
+  },
+  {
     title: "Multiclass Segmentation of Breast Tissue and Suspicious Findings: A Simulation-Based Study for the Development of Self-Steering Tomosynthesis",
     authors: ["Bruno Barufaldi", "Yann Nobrega", "Giulia Carvalhal", "João P. V. Teixeira", "Thais G. do Rego", "Yuri Malheiros", "Telmo Filho", "Raymond J. Acciavatti", "Andrew D. A. Maidment"],
     conference: "Tomography 9, no. 3: 1120-1132",
@@ -83,7 +99,11 @@ const generatePublicationItems = (data) => {
               <Link href={publication.links.DOI || "#"} isExternal>{publication.title}</Link>
             </Heading>
             <Text fontSize="sm" color={useColorModeValue('green.600', 'gray.100')}>
-              {publication.authors.join(", ")}
+              {publication.authors.map((author, i) => (
+                <span key={i} style={{ fontWeight: author === "João P. V. Teixeira" ? 'bold' : 'normal' }}>
+                  {author}{i < publication.authors.length - 1 ? ', ' : ''}
+                </span>
+              ))}
             </Text>
             <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')}>
               {publication.conference}, {publication.year}

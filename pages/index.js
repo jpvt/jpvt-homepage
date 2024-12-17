@@ -36,17 +36,14 @@ const Home = () => (
         direction={{ base: 'column', md: 'row' }}
         width="100%"
         height="100%"
-        overflow="hidden" // Ensure content is hidden to enable scroll only within each section
+        overflow={{ base: 'auto', md: 'hidden' }} // Enable scroll for mobile, hidden for desktop
       >
         {/* Left Side */}
         <Box
           flex="1"
           p={4}
-          overflowY="auto" // Enable vertical scrolling
-          maxHeight="100%"
-          borderRight="1px solid"
+          borderRight={{ base: 'none', md: '1px solid' }}
           borderColor={useColorModeValue('green.200', 'green.700')} // Adds a divider between left and right
-          sx={hideScrollbarStyles} // Apply the custom styles to hide scrollbar
         >
           {/* Left Side Alignment */}
           <VStack alignItems="center" spacing={1}>
