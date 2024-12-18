@@ -5,10 +5,12 @@ import {
   Heading,
   Box,
   useColorModeValue,
-  Flex,
+  SimpleGrid,
+  Stack,
+  Text,
   VStack,
-  HStack, // Import HStack for horizontal layout
-  IconButton, // Use IconButton to display just the icons
+  HStack,
+  IconButton,
 } from '@chakra-ui/react'
 import Paragraph from '../components/paragraph'
 import { BioSection, BioYear } from '../components/bio'
@@ -16,202 +18,207 @@ import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { IoLogoTwitter, IoLogoGithub, IoLogoLinkedin, IoMail } from 'react-icons/io5'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 // Custom styles to hide scrollbars
 const hideScrollbarStyles = {
-  /* For Chrome, Safari, and Opera */
-  '&::-webkit-scrollbar': {
-    display: 'none',
-  },
-  /* For IE, Edge, and Firefox */
+  '&::-webkit-scrollbar': { display: 'none' },
   msOverflowStyle: 'none',
   scrollbarWidth: 'none',
 }
 
-const Home = () => (
-  <Layout>
-    <Container maxW="100%" height="90vh" display="flex" flexDirection="column" overflow="auto" css={hideScrollbarStyles}>
-      {/* Flex container to split content into two sides with independent scrolling */}
-      <Flex
-        direction={{ base: 'column', md: 'row' }}
-        width="100%"
-        height="100%"
-      >
-        {/* Left Side */}
-        <Box
-          flex="1"
-          p={4}
-          borderRight={{ base: 'none', md: '1px solid' }}
-          borderColor={useColorModeValue('green.200', 'green.700')} // Adds a divider between left and right
-        >
-          {/* Left Side Alignment */}
-          <VStack alignItems="center" spacing={1}>
-            {/* Profile Picture */}
-            <Box
-              borderColor="whiteAlpha.800"
-              borderWidth={2}
-              borderStyle="solid"
-              width="200px"
-              height="200px"
-              display="inline-block"
-              borderRadius="16px"
-              overflow="hidden"
-              mb={4}
-            >
-              <Image
-                src="/images/joao.jpg"
-                alt="Profile image"
-                width="2000"
-                height="2000"
-              />
-            </Box>
-            {/* Title and Pronouns */}
-            <Heading as="h2" variant="page-title" textAlign="center">
-              João Teixeira
-            </Heading>
-            <p style={{ textAlign: 'center' }}>he/him, they/them</p>
-            <p style={{ textAlign: 'center' }}>Software Engineer @ Microsoft</p>
+// Custom styles for hyperlinks
+const linkStyles = {
+  position: 'relative',
+  color: 'inherit',
+  textDecoration: 'underline',
+  borderBottom: '1px solid green.400',
+  backgroundImage: 'linear-gradient(to right, transparent 50%, green.400 50%)',
+  backgroundSize: '210%',
+  backgroundPosition: '0%',
+  transition: 'background-position 0.5s ease-in-out',
+  _hover: {
+    backgroundPosition: '-95%',
+  },
+}
 
-            {/* Links Section */}
-            <Section delay={0.1}>
-              {/* HStack for displaying icons side by side */}
-              <HStack spacing={1} mt={2}>
+const Home = () => {
+  const [profilePic, setProfilePic] = useState('/images/profile/joao.jpg')
+
+  useEffect(() => {
+    const pictures = [
+      '/images/profile/joao.jpg',
+      '/images/profile/joao1.jpg',
+      '/images/profile/joao2.jpg',
+      '/images/profile/joao3.JPG',
+      '/images/profile/joao4.jpg',
+      '/images/profile/joao5.jpg',
+      '/images/profile/joao6.jpg',
+      '/images/profile/joao7.jpg',
+    ]
+    const randomPic = pictures[Math.floor(Math.random() * pictures.length)]
+    setProfilePic(randomPic)
+  }, [])
+
+  return (
+    <Layout>
+      <Container
+        maxW={{ base: '100%', lg: '1200px', xl: '1400px' }}
+        height="90vh"
+        display="flex"
+        flexDirection="column"
+        overflow="auto"
+        css={hideScrollbarStyles}
+        p={{ base: 4, md: 6 }}
+      >
+        {/* Grid Layout */}
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} width="100%">
+          {/* Left Side */}
+          <Box p={{ base: 4, lg: 6 }}>
+            <VStack spacing={4} alignItems="center">
+              {/* Profile Picture */}
+              <Box
+                borderColor="whiteAlpha.800"
+                borderWidth={2}
+                borderStyle="solid"
+                width={{ base: '150px', md: '200px', lg: '250px' }}
+                height={{ base: '150px', md: '200px', lg: '250px' }}
+                borderRadius="16px"
+                overflow="hidden"
+              >
+                <Image
+                  src={profilePic}
+                  alt="Profile image"
+                  width="2000"
+                  height="2000"
+                />
+              </Box>
+
+              {/* Name and Title */}
+              <Heading as="h2" fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }} textAlign="center">
+                João Teixeira
+              </Heading>
+              <Paragraph textAlign="center" fontSize="lg" color={useColorModeValue('gray.700', 'gray.300')}>
+                Software Engineer @ Microsoft
+              </Paragraph>
+
+              {/* Social Media Links */}
+              <HStack spacing={4} mt={2}>
                 <Link href="https://github.com/jpvt" target="_blank">
-                  <IconButton
-                    aria-label="Github"
-                    icon={<IoLogoGithub />}
-                    variant="ghost"
-                    colorScheme="#2d7e55"
-                    fontSize="2xl" // Increase font size for larger icon
-                  />
+                  <IconButton aria-label="Github" icon={<IoLogoGithub />} fontSize="2xl" />
                 </Link>
                 <Link href="https://twitter.com/jpvteixeira" target="_blank">
-                  <IconButton
-                    aria-label="Twitter"
-                    icon={<IoLogoTwitter />}
-                    variant="ghost"
-                    colorScheme="#2d7e55"
-                    fontSize="2xl" // Increase font size for larger icon
-                  />
+                  <IconButton aria-label="Twitter" icon={<IoLogoTwitter />} fontSize="2xl" />
                 </Link>
                 <Link href="https://www.linkedin.com/in/jpvt/" target="_blank">
-                  <IconButton
-                    aria-label="LinkedIn"
-                    icon={<IoLogoLinkedin />}
-                    variant="ghost"
-                    colorScheme="#2d7e55"
-                    fontSize="2xl" // Increase font size for larger icon
-                  />
+                  <IconButton aria-label="LinkedIn" icon={<IoLogoLinkedin />} fontSize="2xl" />
                 </Link>
                 <Link href="mailto:jpvteixeira99@gmail.com" target="_blank">
-                  <IconButton
-                    aria-label="Email"
-                    icon={<IoMail />}
-                    variant="ghost"
-                    colorScheme="#2d7e55"
-                    fontSize="2xl" // Increase font size for larger icon
-                  />
+                  <IconButton aria-label="Email" icon={<IoMail />} fontSize="2xl" />
                 </Link>
               </HStack>
-            </Section>
-          </VStack>
-        </Box>
 
-        {/* Right Side */}
-        <Box
-          flex="2"
-          p={4}
-          overflow={{ base: 'visible', md: 'auto' }} // Enable scroll for the right side on larger screens
-          css={hideScrollbarStyles}
-        >
-          {/* News Section */}
-          <Section delay={0.1}>
-            <Box
-              borderRadius="lg"
-              mb={3}
-              p={3}
-              mt={0}
-              textAlign="start"
-              bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')}
-              css={{ backdropFilter: 'blur(10px)' }}
-            >
-              <Heading as="h3" variant="section-title">
-                Selected News
+              {/* News Section */}
+              <Section delay={0.1}>
+                <Box
+                  borderRadius="lg"
+                  p={4}
+                  borderWidth="2px"
+                  borderColor={useColorModeValue('green.400', 'green.600')}
+                  bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')}
+                  width="100%"
+                >
+                  <Heading
+                    as="h3"
+                    fontSize={{ base: 'lg', md: 'xl' }}
+                    mb={3}
+                    borderBottom="2px solid"
+                    borderColor={useColorModeValue('green.400', 'green.600')}
+                  >
+                    Selected News
+                  </Heading>
+                  <BioSection>
+                    <BioYear>Jan 2024</BioYear>
+                    Started as Software Engineer at Microsoft, working with Machine Learning at AKS.
+                  </BioSection>
+                  <BioSection>
+                    <BioYear>Mar 2023</BioYear>
+                    I’m thrilled to announce that this summer I’ll be joining{' '}
+                    <Link as={NextLink} href="https://sgi.mit.edu/sgi-2023" target="_blank" sx={linkStyles}>
+                      MIT’s Summer Geometry Initiative
+                    </Link>{' '}
+                    as a Fellow!
+                  </BioSection>
+                  <BioSection>
+                    <BioYear>Aug 2022</BioYear>
+                    Honored to become an Estudar Foundation Tech Fellow, class of 2022.
+                  </BioSection>
+                  <BioSection>
+                    <BioYear>Oct 2021</BioYear>
+                    First person in my home university to intern at Amazon.
+                  </BioSection>
+                </Box>
+              </Section>
+            </VStack>
+          </Box>
+
+          {/* Right Side */}
+          <Box p={{ base: 4, lg: 6 }} overflowY="auto" css={hideScrollbarStyles}>
+            <Section delay={0.1}>
+              <Heading
+                as="h3"
+                mb={4}
+                fontSize={{ base: 'xl', lg: '2xl' }}
+                borderBottom="2px solid"
+                borderColor={useColorModeValue('green.400', 'green.600')}
+              >
+                About Me
               </Heading>
-              <BioSection>
-                <BioYear>Jan 2024</BioYear>
-                Started as Software Engineer at Microsoft, working with Machine Learning at AKS.
-              </BioSection>
-              <BioSection>
-                <BioYear>Mar 2023</BioYear>
-                I'm thrilled to announce that this summer I'll be joining{" "}
-                <Link as={NextLink} href="https://sgi.mit.edu/sgi-2023" passHref scroll={false}>
-                  MIT's Summer Geometry Initiative
-                </Link>{' '}
-                as a Fellow!
-              </BioSection> 
-              <BioSection>
-                <BioYear>Aug 2022</BioYear>
-                Honored to become a Estudar Foundation Tech Fellow, class of 2022.
-              </BioSection>   
-              <BioSection>
-                <BioYear>Oct 2021</BioYear>
-                First person in my home university to intern at Amazon.
-              </BioSection>
-            </Box>
-          </Section>
-
-          {/* About Me Section */}
-          <Section delay={0.2}>
-            <Heading as="h3" variant="section-title">
-              About Me
-            </Heading>
-            <Paragraph>
-            Hi! I'm <strong>João Teixeira</strong> <small>(Jo-ahn-uhm Tay-shay-ra)</small>
-            <br></br>
-            <br></br>
-            <p>
-                I'm a <strong>Software Engineer at Microsoft</strong>, where I design and build 
-                {' '}<strong>automated, data-driven systems</strong> for 
-                {' '}<strong>Azure Kubernetes Service (AKS) Infrastructure</strong>. My work focuses on 
-                leveraging historical data and predictive analytics to optimize 
-                {' '}<strong>capacity management</strong> and <strong>resource allocation</strong> at scale.
-            </p>
-            <br></br>
-            <p>
+              <Paragraph>
+                Hi! I’m <strong>João Teixeira</strong> (<small>Jo-ahn-uhm Tay-shay-ra</small>).
+                <br /><br />
+                I’m a <strong>Software Engineer at Microsoft</strong>, where I design and build
+                <strong> automated, data-driven systems</strong> for
+                <strong> Azure Kubernetes Service (AKS) Infrastructure</strong>. My work focuses on
+                leveraging historical data and predictive analytics to optimize
+                <strong> capacity management</strong> and resource allocation at scale.
+                <br /><br />
                 I’m passionate about <strong>Geometry Processing</strong> and <strong>Machine Learning</strong>, particularly 
-                shape representation and analysis. I was a <Link href="https://sgi.mit.edu/sgi-2023" target="_blank">
-                {' '}<strong>MIT Summer Geometry Initiative Fellow (2023)</strong></Link>, where I kick-started several projects showcased here.
-            </p>
-            <br></br>
-            <p>
-                Previously, I worked on <strong>Computer Graphics</strong> and 
-                {' '}<strong>Medical Imaging</strong> as part of the <strong>ARIA Lab</strong> in collaboration with 
-                the <strong>X-ray Physics Lab at the University of Pennsylvania</strong>. I’m also a proud recipient of the <strong>Estudar Foundation Tech Fellowship</strong> 
-                {' '}<em>(0.6% acceptance rate)</em>.
-            </p>
-            <br></br>
-            <p>
-                Feel free to connect—let’s talk about <strong>geometry, machine learning, engineering</strong>, or anything in between!
-            </p>
-            </Paragraph>
-          </Section>
-
-          {/* I Love Section */}
-          <Section delay={0.3}>
-            <Heading as="h3" variant="section-title">
-              I ♥
-            </Heading>
-            <Paragraph>
-              Outside of work, I love
-              Art, Music, Tabletop RPGs, Soccer, and Indie Games!
-            </Paragraph>
-          </Section>
-        </Box>
-      </Flex>
-    </Container>
-  </Layout>
-)
+                shape representation and analysis. I was a <Link href="https://sgi.mit.edu/sgi-2023" target="_blank" sx={linkStyles}>
+                <strong>MIT Summer Geometry Initiative Fellow (2023)</strong></Link>, where I kick-started several projects showcased here.
+                <br /><br />
+                Previously, I worked on <strong>Computer Graphics</strong> and
+                <strong> Medical Imaging</strong> as part of the <strong>ARIA Lab</strong> in
+                collaboration with the <strong>X-ray Physics Lab at the University of Pennsylvania</strong>.
+                I’m also a proud recipient of the <strong>Estudar Foundation Tech Fellowship</strong>.
+                <br /><br />
+                Feel free to connect—let’s talk about <strong>geometry, machine learning, and
+                engineering!</strong>
+              </Paragraph>
+            </Section>
+            {/* Trivia Section */}
+            <Section delay={0.2}>
+              <Heading as="h3" mb={4} fontSize={{ base: 'xl', lg: '2xl' }} borderBottom="2px solid" borderColor={useColorModeValue('green.400', 'green.600')}>
+                Trivia
+              </Heading>
+              <Paragraph>
+                Outside of work, I try to enjoy a few hobbies. Here are some fun facts about it:
+                <br /><br />
+                🎮 I’m a huge fan of CRPG video games, my favorite one is Baldur's Gate 3
+                <br /><br />
+                🍳 I recently got into cooking and I'm trying to learn as many healthy recipes as possible
+                  <br /><br />
+                🧙‍♂️ I enjoy playing Dungeons & Dragons and often serve as the Dungeon Master for my group
+                  <br /><br />
+                ✈️ I love traveling and one of my dreams is to visit all continents before my 30s!
+              </Paragraph>
+            </Section>
+          </Box>
+        </SimpleGrid>
+      </Container>
+    </Layout>
+  )
+}
 
 export default Home
 export { getServerSideProps } from '../components/chakra'
