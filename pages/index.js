@@ -6,8 +6,6 @@ import {
   Box,
   useColorModeValue,
   SimpleGrid,
-  Stack,
-  Text,
   VStack,
   HStack,
   IconButton,
