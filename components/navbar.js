@@ -85,6 +85,9 @@ const Navbar = props => {
           <LinkItem href="/cv" path={path}>
             CV
           </LinkItem>
+          <LinkItem href="/calendar" path={path}>
+            Calendar
+          </LinkItem>
         </Stack>
 
         <Box flex={1} align="right">
