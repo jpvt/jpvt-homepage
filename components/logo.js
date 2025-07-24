@@ -23,8 +23,7 @@ const LogoBox = styled.span`
 
 const Logo = () => {
   return (
-    (<Link href="/" scroll={false}>
-
+    <Link href="/" scroll={false}>
       <LogoBox>
         <DiceIcon />
         <Text
@@ -36,9 +35,8 @@ const Logo = () => {
           João Teixeira
         </Text>
       </LogoBox>
-
-    </Link>)
-  );
+    </Link>
+  )
 }
 
 export default Logo
