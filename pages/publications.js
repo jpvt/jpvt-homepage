@@ -12,7 +12,8 @@ import {
   ModalContent,
   ModalBody,
   ModalCloseButton,
-  useDisclosure
+  useDisclosure,
+  keyframes
 } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
@@ -29,7 +30,7 @@ const publicationsData = [
       'Andrew D. A. Maidment'
     ],
     conference:
-      ' Proceedings Virtual Imaging Trials in Medicine 2024 Page: 116-121',
+      ' Proceedings Virtual Imaging Trials in Medicine Page: 116-121',
     year: 2024,
     image: '/images/publications/vitm.png',
     tldr: 'Cross-validating ray-tracing and Monte Carlo simulators for lesion detectability in breast tomosynthesis VCTs.',
@@ -94,11 +95,12 @@ const publicationsData = [
       'Predrag R. Bakic'
     ],
     conference:
-      'Live Demonstrations Workshop, SPIE Medical Imaging, 2023, San Diego, California, United States',
+      'Live Demonstrations Workshop - SPIE Medical Imaging, 2023, San Diego, California, United States',
     year: 2023,
     image: '/images/publications/live_demo.png',
     tldr: 'Tool for creating realistic breast lesions in phantoms for virtual trials.',
-    links: { '🏆 Best Live Demo': 'demo_award.pdf' }
+    award: '🏆 Best Live Demo',
+    links: {}
   },
   {
     title:
@@ -110,7 +112,7 @@ const publicationsData = [
       'Raymond J. Acciavatti',
       'Andrew D. A. Maidment'
     ],
-    conference: '16th International Workshop on Breast Imaging (IWBI2022)',
+    conference: '16th International Workshop on Breast Imaging (IWBI)',
     year: 2022,
     image: '/images/publications/choi_iwbi.png',
     tldr: 'Using virtual clinical trials to show that a T-shaped source motion in tomosynthesis improves lesion detectability and reduces spatial anisotropies compared to conventional geometry.',
@@ -132,11 +134,12 @@ const publicationsData = [
       'Andrew D. A. Maidment',
       'Bruno Barufaldi'
     ],
-    conference: '16th International Workshop on Breast Imaging (IWBI2022)',
+    conference: '16th International Workshop on Breast Imaging (IWBI)',
     year: 2022,
     image: '/images/publications/nobrega_carvalhal_iwbi.png',
     tldr: 'Using virtual phantoms and a U-Net model to show that a single NGT projection can reliably identify suspicious, cancer-prone regions for guiding adaptive tomosynthesis scans.',
-    links: { '🏆 Top Scorer': '', DOI: 'https://doi.org/10.1117/12.2626225' }
+    award: '🏆 Top Scorer',
+    links: { DOI: 'https://doi.org/10.1117/12.2626225' }
   },
   {
     title:
@@ -177,7 +180,7 @@ const publicationsData = [
       'Yuri Malheiros',
       'Telmo Filho'
     ],
-    conference: 'BRACIS 2021',
+    conference: 'BRACIS',
     year: 2021,
     image: '/images/publications/rocha_bracis.png',
     tldr: 'Toy dataset of Iris flowers images for testing computer vision models.',
@@ -194,13 +197,75 @@ const publicationsData = [
       'Tiago Maritan'
     ],
     conference:
-      "WebMedia '21: Proceedings of the Brazilian Symposium on Multimedia and the Web",
+      "WebMedia: Proceedings of the Brazilian Symposium on Multimedia and the Web",
     year: 2021,
     image: '/images/publications/rocha_webmedia.png',
     tldr: 'Combining face and expression detection with deep learning and audio synthesis to automatically generate character-based descriptions for blind and visually impaired users.',
     links: { DOI: 'https://doi.org/10.1145/3470482.3479617' }
   }
 ]
+
+// Keyframes for the shine animation
+const shine = keyframes`
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+`
+
+// Award Badge component with animations
+const AwardBadge = ({ award }) => {
+  // Exact Tailwind colors to match reference template
+  const bgGradient = 'linear(to-r, #fffbeb, #fff1f2)' // from-amber-50 to-rose-50
+  const textColor = '#b45309' // text-amber-700
+  const borderColor = 'rgba(254, 243, 199, 0.5)' // border-amber-100/50
+
+  return (
+    <Box
+      display="inline-block"
+      px={2}
+      py={0.5}
+      bgGradient={bgGradient}
+      borderRadius="md"
+      border="1px solid"
+      borderColor={borderColor}
+      boxShadow="md"
+      position="relative"
+      overflow="hidden"
+      transition="all 0.3s ease"
+      _hover={{
+        transform: 'rotate(1deg)',
+        boxShadow: 'md'
+      }}
+      _groupHover={{
+        '& .shine-overlay': {
+          animation: `${shine} 1s ease-in-out`
+        }
+      }}
+      ml={2}
+    >
+      {/* Shine overlay effect */}
+      <Box
+        className="shine-overlay"
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        bgGradient="linear(to-r, transparent, whiteAlpha.600, transparent)"
+        transform="translateX(-100%)"
+      />
+
+      <Text
+        fontSize="xs"
+        fontWeight="medium"
+        color={textColor}
+        position="relative"
+        zIndex={1}
+      >
+        {award}
+      </Text>
+    </Box>
+  )
+}
 
 // ImageModal component for viewing full-size images
 const ImageModal = ({ isOpen, onClose, imageUrl, alt }) => (
@@ -236,7 +301,6 @@ const PublicationItem = ({ publication, index }) => {
   const textColor = useColorModeValue('gray.600', 'gray.300')
   const mutedColor = useColorModeValue('gray.500', 'gray.400')
   const linkColor = useColorModeValue('blue.600', 'blue.400')
-  const awardColor = useColorModeValue('green.600', 'green.400')
 
   return (
     <Section delay={0.1 * index}>
@@ -245,6 +309,7 @@ const PublicationItem = ({ publication, index }) => {
         borderBottom="1px"
         borderColor={borderColor}
         _last={{ borderBottom: 'none' }}
+        role="group"
       >
         {/* Simple Horizontal Layout */}
         <HStack spacing={6} align="flex-start">
@@ -265,10 +330,13 @@ const PublicationItem = ({ publication, index }) => {
 
           {/* Publication Text Content */}
           <Box flex="1" minW="0">
-            {/* Conference and Year */}
-            <Text fontSize="sm" color={mutedColor} mb={2} fontWeight="medium">
-              {publication.conference.split(',')[0]} {publication.year}
-            </Text>
+            {/* Conference and Year with inline Award Badge */}
+            <HStack spacing={0} mb={2} align="center">
+              <Text fontSize="sm" color={mutedColor} fontWeight="medium">
+                {publication.conference.split(',')[0]} {publication.year}
+              </Text>
+              {publication.award && <AwardBadge award={publication.award} />}
+            </HStack>
 
             {/* Publication Title */}
             <Heading
@@ -318,20 +386,6 @@ const PublicationItem = ({ publication, index }) => {
                 >
                   📄 Paper
                 </Link>
-              )}
-              {Object.entries(publication.links).map(
-                ([key, _]) =>
-                  key !== 'DOI' && (
-                    <Text
-                      key={key}
-                      color={awardColor}
-                      fontSize="sm"
-                      fontWeight="medium"
-                      textTransform="uppercase"
-                    >
-                      {key}
-                    </Text>
-                  )
               )}
             </HStack>
 
