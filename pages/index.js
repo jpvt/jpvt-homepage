@@ -5,7 +5,8 @@ import {
   Heading,
   Box,
   useColorModeValue,
-  SimpleGrid,
+  Grid,
+  GridItem,
   VStack,
   HStack,
   IconButton,
@@ -17,12 +18,6 @@ import Section from '../components/section'
 import { IoLogoTwitter, IoLogoGithub, IoLogoLinkedin, IoMail } from 'react-icons/io5'
 import Image from 'next/image'
 
-// Custom styles to hide scrollbars
-const hideScrollbarStyles = {
-  '&::-webkit-scrollbar': { display: 'none' },
-  msOverflowStyle: 'none',
-  scrollbarWidth: 'none',
-}
 
 // Custom styles for hyperlinks
 const linkStyles = {
@@ -46,25 +41,32 @@ const Home = ({ randomProfilePic }) => {
     <Layout>
       <Container
         maxW={{ base: '100%', lg: '1200px', xl: '1400px' }}
-        height="90vh"
-        display="flex"
-        flexDirection="column"
-        overflow="auto"
-        css={hideScrollbarStyles}
-        p={{ base: 4, md: 6 }}
+        minHeight="100vh"
+        p={{ base: 4, md: 6, lg: 8 }}
+        py={{ base: 8, md: 12, lg: 24 }}
       >
         {/* Grid Layout */}
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} width="100%">
+        <Grid
+          templateColumns={{ base: '1fr', md: 'repeat(12, 1fr)' }}
+          gap={{ base: 8, md: 6 }}
+          width="100%"
+        >
           {/* Left Side */}
-          <Box p={{ base: 4, lg: 6 }}>
-            <VStack spacing={4} alignItems="center">
+          <GridItem
+            colSpan={{ base: 12, md: 4 }}
+            position={{ base: 'static', md: 'sticky' }}
+            top={{ base: 'auto', md: '2rem' }}
+            justifySelf="start"
+            alignSelf="start"
+          >
+            <VStack spacing={6} alignItems="center">
               {/* Profile Picture */}
               <Box
                 borderColor="whiteAlpha.800"
                 borderWidth={2}
                 borderStyle="solid"
-                width={{ base: '150px', md: '200px', lg: '250px' }}
-                height={{ base: '150px', md: '200px', lg: '250px' }}
+                width={{ base: '180px', md: '220px', lg: '260px' }}
+                height={{ base: '180px', md: '220px', lg: '260px' }}
                 borderRadius="16px"
                 overflow="hidden"
               >
@@ -142,14 +144,17 @@ const Home = ({ randomProfilePic }) => {
                 </Box>
               </Section>
             </VStack>
-          </Box>
+          </GridItem>
 
           {/* Right Side */}
-          <Box p={{ base: 4, lg: 6 }} overflowY="auto" css={hideScrollbarStyles}>
+          <GridItem
+            colSpan={{ base: 12, md: 7 }}
+            colStart={{ base: 1, md: 6 }}
+          >
             <Section delay={0.1}>
               <Heading
                 as="h3"
-                mb={4}
+                mb={6}
                 fontSize={{ base: 'xl', lg: '2xl' }}
                 borderBottom="2px solid"
                 borderColor={useColorModeValue('green.400', 'green.600')}
@@ -180,7 +185,14 @@ const Home = ({ randomProfilePic }) => {
             </Section>
             {/* Trivia Section */}
             <Section delay={0.2}>
-              <Heading as="h3" mb={4} fontSize={{ base: 'xl', lg: '2xl' }} borderBottom="2px solid" borderColor={useColorModeValue('green.400', 'green.600')}>
+              <Heading 
+                as="h3" 
+                mb={6} 
+                mt={8}
+                fontSize={{ base: 'xl', lg: '2xl' }} 
+                borderBottom="2px solid" 
+                borderColor={useColorModeValue('green.400', 'green.600')}
+              >
                 Trivia
               </Heading>
               <Paragraph>
@@ -195,8 +207,8 @@ const Home = ({ randomProfilePic }) => {
                 ✈️ I love traveling and one of my dreams is to visit all continents before my 30s!
               </Paragraph>
             </Section>
-          </Box>
-        </SimpleGrid>
+          </GridItem>
+        </Grid>
       </Container>
     </Layout>
   )
