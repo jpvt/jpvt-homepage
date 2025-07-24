@@ -16,7 +16,6 @@ import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { IoLogoTwitter, IoLogoGithub, IoLogoLinkedin, IoMail } from 'react-icons/io5'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
 
 // Custom styles to hide scrollbars
 const hideScrollbarStyles = {
@@ -40,23 +39,8 @@ const linkStyles = {
   },
 }
 
-const Home = () => {
-  const [profilePic, setProfilePic] = useState('/images/profile/joao.jpg')
-
-  useEffect(() => {
-    const pictures = [
-      '/images/profile/joao.jpg',
-      '/images/profile/joao1.jpg',
-      '/images/profile/joao2.jpg',
-      '/images/profile/joao3.JPG',
-      '/images/profile/joao4.jpg',
-      '/images/profile/joao5.jpg',
-      '/images/profile/joao6.jpg',
-      '/images/profile/joao7.jpg',
-    ]
-    const randomPic = pictures[Math.floor(Math.random() * pictures.length)]
-    setProfilePic(randomPic)
-  }, [])
+const Home = ({ randomProfilePic }) => {
+  const profilePic = randomProfilePic || '/images/profile/joao.jpg'
 
   return (
     <Layout>
@@ -219,4 +203,37 @@ const Home = () => {
 }
 
 export default Home
-export { getServerSideProps } from '../components/chakra'
+
+export async function getServerSideProps() {
+  const fs = require('fs')
+  const path = require('path')
+  
+  try {
+    const profileDir = path.join(process.cwd(), 'public', 'images', 'profile')
+    const files = fs.readdirSync(profileDir)
+    
+    const imageFiles = files.filter(file => {
+      const ext = path.extname(file).toLowerCase()
+      return ['.jpg', '.jpeg', '.png', '.gif', '.webp'].includes(ext)
+    })
+    
+    if (imageFiles.length > 0) {
+      const randomFile = imageFiles[Math.floor(Math.random() * imageFiles.length)]
+      const randomProfilePic = `/images/profile/${randomFile}`
+      
+      return {
+        props: {
+          randomProfilePic
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error loading profile images:', error)
+  }
+  
+  return {
+    props: {
+      randomProfilePic: '/images/profile/joao.jpg'
+    }
+  }
+}
