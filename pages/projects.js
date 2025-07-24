@@ -135,9 +135,9 @@ const ProjectItem = ({ project, index }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const borderColor = useColorModeValue('gray.200', 'gray.700')
   const headingColor = useColorModeValue('gray.800', 'white')
-  const textColor = useColorModeValue('gray.600', 'gray.300')
-  const mutedColor = useColorModeValue('gray.500', 'gray.400')
-  const linkColor = useColorModeValue('blue.600', 'blue.400')
+  const textColor = useColorModeValue('gray.800', 'gray.300')
+  const mutedColor = useColorModeValue('gray.700', 'gray.400')
+  const linkColor = useColorModeValue('grassTeal', 'green.400')
 
   return (
     <Section delay={0.1 * index}>

@@ -29,8 +29,7 @@ const publicationsData = [
       'Raymond J. Acciavatti',
       'Andrew D. A. Maidment'
     ],
-    conference:
-      ' Proceedings Virtual Imaging Trials in Medicine Page: 116-121',
+    conference: ' Proceedings Virtual Imaging Trials in Medicine Page: 116-121',
     year: 2024,
     image: '/images/publications/vitm.png',
     tldr: 'Cross-validating ray-tracing and Monte Carlo simulators for lesion detectability in breast tomosynthesis VCTs.',
@@ -197,7 +196,7 @@ const publicationsData = [
       'Tiago Maritan'
     ],
     conference:
-      "WebMedia: Proceedings of the Brazilian Symposium on Multimedia and the Web",
+      'WebMedia: Proceedings of the Brazilian Symposium on Multimedia and the Web',
     year: 2021,
     image: '/images/publications/rocha_webmedia.png',
     tldr: 'Combining face and expression detection with deep learning and audio synthesis to automatically generate character-based descriptions for blind and visually impaired users.',
@@ -298,9 +297,9 @@ const PublicationItem = ({ publication, index }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const borderColor = useColorModeValue('gray.200', 'gray.700')
   const headingColor = useColorModeValue('gray.800', 'white')
-  const textColor = useColorModeValue('gray.600', 'gray.300')
-  const mutedColor = useColorModeValue('gray.500', 'gray.400')
-  const linkColor = useColorModeValue('blue.600', 'blue.400')
+  const textColor = useColorModeValue('gray.800', 'gray.300')
+  const mutedColor = useColorModeValue('gray.700', 'gray.400')
+  const linkColor = useColorModeValue('grassTeal', 'green.400')
 
   return (
     <Section delay={0.1 * index}>
