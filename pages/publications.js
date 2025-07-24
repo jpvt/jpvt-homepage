@@ -1,4 +1,4 @@
-import { Container, Heading, SimpleGrid, Box, Text, Link, Image, Divider, Stack, HStack, Badge, useColorModeValue } from '@chakra-ui/react';
+import { Container, Heading, Box, Text, Link, Image, HStack, useColorModeValue, Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react';
 import Layout from '../components/layouts/article';
 import Section from '../components/section';
 
@@ -9,6 +9,7 @@ const publicationsData = [
     conference: " Proceedings Virtual Imaging Trials in Medicine 2024 Page: 116-121",
     year: 2024,
     image: "/images/publications/vitm.png",
+    tldr: "Cross-validating ray-tracing and Monte Carlo simulators for lesion detectability in breast tomosynthesis VCTs.",
     links: { DOI: "https://doi.org/10.48550/arXiv.2405.05359" }
   },
   {
@@ -17,6 +18,7 @@ const publicationsData = [
     conference: "SPIE Medical Imaging, 2024, San Diego, California, United States",
     year: 2024,
     image: "/images/publications/spie2024.png",
+    tldr: "Simulating realistic breast tissue textures in DBT using a Simplex-based noise model stratified by density classes.",
     links: { DOI: "https://doi.org/10.1117/12.3006839" }
   },
   {
@@ -25,6 +27,7 @@ const publicationsData = [
     conference: "Tomography 9, no. 3: 1120-1132",
     year: 2023,
     image: "/images/publications/tomography_j.png",
+    tldr: "Self-steering tomosynthesis by using a U-Net and Dirichlet calibration to detect high-risk areas from a single low-dose breast projection.",
     links: { DOI: "https://doi.org/10.3390/tomography9030092" }
   },
   {
@@ -33,6 +36,7 @@ const publicationsData = [
     conference: "Live Demonstrations Workshop, SPIE Medical Imaging, 2023, San Diego, California, United States",
     year: 2023,
     image: "/images/publications/live_demo.png",
+    tldr: "Tool for creating realistic breast lesions in phantoms for virtual trials.",
     links: { "🏆 Best Live Demo": "demo_award.pdf" }
   },
   {
@@ -41,6 +45,7 @@ const publicationsData = [
     conference: "16th International Workshop on Breast Imaging (IWBI2022)",
     year: 2022,
     image: "/images/publications/choi_iwbi.png",
+    tldr: "Using virtual clinical trials to show that a T-shaped source motion in tomosynthesis improves lesion detectability and reduces spatial anisotropies compared to conventional geometry.",
     links: { DOI: "https://doi.org/10.1117/12.2626272" }
   },
   {
@@ -49,6 +54,7 @@ const publicationsData = [
     conference: "16th International Workshop on Breast Imaging (IWBI2022)",
     year: 2022,
     image: "/images/publications/nobrega_carvalhal_iwbi.png",
+    tldr: "Using virtual phantoms and a U-Net model to show that a single NGT projection can reliably identify suspicious, cancer-prone regions for guiding adaptive tomosynthesis scans.",
     links: { "🏆 Top Scorer": "", DOI: "https://doi.org/10.1117/12.2626225" }
   },
   {
@@ -57,6 +63,7 @@ const publicationsData = [
     conference: "SPIE Medical Imaging, 2022, San Diego, California, United States",
     year: 2022,
     image: "/images/publications/teixeira_spie.png",
+    tldr: "Using Perlin-based phantoms to show how custom x-ray source motions can improve breast volume estimation and optimize DBT prototype acquisition geometry.",
     links: { DOI: "https://doi.org/10.1117/12.2612565" }
   },
   {
@@ -65,6 +72,7 @@ const publicationsData = [
     conference: "BRACIS 2021",
     year: 2021,
     image: "/images/publications/rocha_bracis.png",
+    tldr: "Toy dataset of Iris flowers images for testing computer vision models.",
     links: { DOI: "https://doi.org/10.1007/978-3-030-91699-2_18" }
   },
   {
@@ -73,81 +81,209 @@ const publicationsData = [
     conference: "WebMedia '21: Proceedings of the Brazilian Symposium on Multimedia and the Web",
     year: 2021,
     image: "/images/publications/rocha_webmedia.png",
+    tldr: "Combining face and expression detection with deep learning and audio synthesis to automatically generate character-based descriptions for blind and visually impaired users.",
     links: { DOI: "https://doi.org/10.1145/3470482.3479617" }
   }
 ];
 
-// Function to generate publication components
-const generatePublicationItems = (data) => {
-  return data.map((publication, index) => (
-    <Section key={index} delay={0.1 * index}>
-      <Box border="1px" borderRadius="lg" overflow="hidden" borderColor={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')} bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')} css={{ backdropFilter: 'blur(10px)'}} p={4}>
-        <Stack direction={{ base: 'column', md: 'row' }} align="center" spacing={4}>
-          {/* Publication Image */}
-          <Image
-            src={publication.image}
-            alt={publication.title}
-            width={{ base: '100px', md: '150px' }}
-            height={{ base: '100px', md: '150px' }}
-            borderRadius="md"
-            objectFit="cover"
-            mr={4}
-          />
-          {/* Publication Details */}
-          <Box>
-            <Heading as="h4" size="md" mb={2}>
-              <Link href={publication.links.DOI || "#"} isExternal>{publication.title}</Link>
+// ImageModal component for viewing full-size images
+const ImageModal = ({ isOpen, onClose, imageUrl, alt }) => (
+  <Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered>
+    <ModalOverlay bg="blackAlpha.800" />
+    <ModalContent bg="transparent" boxShadow="none" maxW="90vw" maxH="90vh">
+      <ModalCloseButton 
+        color="white" 
+        size="lg" 
+        top={4} 
+        right={4}
+        _hover={{ bg: 'whiteAlpha.200' }}
+      />
+      <ModalBody p={0}>
+        <Image
+          src={imageUrl}
+          alt={alt}
+          maxW="100%"
+          maxH="90vh"
+          objectFit="contain"
+          borderRadius="md"
+        />
+      </ModalBody>
+    </ModalContent>
+  </Modal>
+);
+
+// Publication item component with modal functionality
+const PublicationItem = ({ publication, index }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const borderColor = useColorModeValue('gray.200', 'gray.700');
+  const headingColor = useColorModeValue('gray.800', 'white');
+  const textColor = useColorModeValue('gray.600', 'gray.300');
+  const mutedColor = useColorModeValue('gray.500', 'gray.400');
+  const linkColor = useColorModeValue('blue.600', 'blue.400');
+  const awardColor = useColorModeValue('green.600', 'green.400');
+  
+  return (
+    <Section delay={0.1 * index}>
+      <Box 
+        py={6}
+        borderBottom="1px"
+        borderColor={borderColor}
+        _last={{ borderBottom: 'none' }}
+      >
+        {/* Simple Horizontal Layout */}
+        <HStack spacing={6} align="flex-start">
+          {/* Small Thumbnail Image - Clickable */}
+          <Box flexShrink={0}>
+            <Image
+              src={publication.image}
+              alt={publication.title}
+              width="160px"
+              height="120px"
+              objectFit="cover"
+              borderRadius="md"
+              transition="transform 0.3s"
+              _hover={{ transform: 'scale(1.05)', cursor: 'pointer' }}
+              onClick={onOpen}
+            />
+          </Box>
+          
+          {/* Publication Text Content */}
+          <Box flex="1" minW="0">
+            {/* Conference and Year */}
+            <Text 
+              fontSize="sm" 
+              color={mutedColor}
+              mb={2}
+              fontWeight="medium"
+            >
+              {publication.conference.split(',')[0]} {publication.year}
+            </Text>
+            
+            {/* Publication Title */}
+            <Heading 
+              as="h3" 
+              fontSize="lg" 
+              mb={3} 
+              lineHeight="1.4"
+              color={headingColor}
+              fontWeight="semibold"
+            >
+              <Link 
+                href={publication.links.DOI || "#"} 
+                isExternal
+                _hover={{ textDecoration: 'underline' }}
+              >
+                {publication.title}
+              </Link>
             </Heading>
-            <Text fontSize="sm" color={useColorModeValue('green.600', 'gray.100')}>
+            
+            {/* Authors */}
+            <Text 
+              fontSize="md" 
+              color={textColor} 
+              lineHeight="1.5"
+              mb={3}
+            >
               {publication.authors.map((author, i) => (
-                <span key={i} style={{ fontWeight: author === "João P. V. Teixeira" ? 'bold' : 'normal' }}>
+                <span key={i} style={{ 
+                  fontWeight: author === "João P. V. Teixeira" ? 'bold' : 'normal'
+                }}>
                   {author}{i < publication.authors.length - 1 ? ', ' : ''}
                 </span>
               ))}
             </Text>
-            <Text fontSize="sm" color={useColorModeValue('green.700', 'green.400')}>
-              {publication.conference}, {publication.year}
+            
+            {/* Action Links */}
+            <HStack spacing={4} mb={2}>
+              {publication.links.DOI && (
+                <Link
+                  href={publication.links.DOI}
+                  isExternal
+                  color={linkColor}
+                  fontSize="sm"
+                  fontWeight="medium"
+                  textTransform="uppercase"
+                  _hover={{ textDecoration: 'underline' }}
+                >
+                  📄 Paper
+                </Link>
+              )}
+              {Object.entries(publication.links).map(([key, _]) => (
+                key !== 'DOI' && (
+                  <Text 
+                    key={key}
+                    color={awardColor}
+                    fontSize="sm"
+                    fontWeight="medium"
+                    textTransform="uppercase"
+                  >
+                    {key}
+                  </Text>
+                )
+              ))}
+            </HStack>
+            
+            {/* Optional Description - using tldr */}
+            <Text 
+              fontSize="sm"
+              color={mutedColor}
+              fontStyle="italic"
+              lineHeight="1.4"
+            >
+              {publication.tldr}
             </Text>
-            {/* Optional Badges for awards or additional links */}
-            {publication.links && (
-              <HStack mt={2} spacing={2}>
-                {Object.entries(publication.links).map(([key, _]) => (
-                  key !== 'DOI' && (
-                    <Badge key={key} colorScheme="green">
-                      {key}
-                    </Badge>
-                  )
-                ))}
-              </HStack>
-            )}
           </Box>
-        </Stack>
+        </HStack>
+        
+        {/* Image Modal */}
+        <ImageModal 
+          isOpen={isOpen} 
+          onClose={onClose} 
+          imageUrl={publication.image} 
+          alt={publication.title}
+        />
       </Box>
     </Section>
+  );
+};
+
+// Function to generate publication components
+const generatePublicationItems = (data) => {
+  return data.map((publication, index) => (
+    <PublicationItem key={index} publication={publication} index={index} />
   ));
 };
 
 // Publications Page Component
-const Publications = () => (
-  <Layout title="Publications">
-    <Container maxW="container.lg" py={10}>
-      {/* Page Title */}
-      <Section delay={0.1}>
-        <Heading as="h1" fontSize={36} textAlign="center" mb={8}>
-          Publications
-        </Heading>
-      </Section>
-      
-      {/* Render Publications */}
-      <SimpleGrid columns={[1, 1, 1]} spacing={8}>
-        {generatePublicationItems(publicationsData)}
-      </SimpleGrid>
-
-      {/* Footer Divider */}
-      <Divider my={10} />
-    </Container>
-  </Layout>
-);
+const Publications = () => {
+  const titleColor = useColorModeValue('gray.800', 'white');
+  
+  return (
+    <Layout title="Publications">
+      <Container maxW="container.lg" py={12}>
+        {/* Page Title */}
+        <Section delay={0.1}>
+          <Heading 
+            as="h1" 
+            fontSize={{ base: 24, md: 32 }} 
+            mb={12}
+            fontWeight="normal"
+            letterSpacing="wide"
+            textTransform="uppercase"
+            color={titleColor}
+          >
+            Publications
+          </Heading>
+        </Section>
+        
+        {/* Render Publications - Clean List */}
+        <Box maxW="800px" mx="auto">
+          {generatePublicationItems(publicationsData)}
+        </Box>
+      </Container>
+    </Layout>
+  );
+};
 
 export default Publications;
 export { getServerSideProps } from '../components/chakra';
